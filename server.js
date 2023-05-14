@@ -1,24 +1,25 @@
 const express = require("express");
 const app = express();
-const port = 3000 
+const port = 3000
+const mongoose = require('mongoose')
+app.use(express.json())
+require('dotenv').config({path:'./config.env'});
+const connectDb = require('./db/db');
+const router = require("./routes/user");
 
 
-app.get("/", ((req,res)=> { 
-    res.send('Hello World')
-}))
+app.use('/getAllUsers',router)
+app.use('/delete',router)
 
-app.get("/about-route", ((req,res)=> { 
-    res.send('Hello From Jawahir');
-}))
 
-app.get("/contact", ((req,res)=> { 
-    res.send('<h1> My Contact </h1>');
-}))
 
-app.get("/home", ((req,res)=> { 
-    res.send('<h1> My Home Page </h1>');
-}))
 
-app.listen(port, () =>{
-    console.log(`Example app listening on port ${port}`)
-})
+app.listen(port, function (err) {
+    if (err) console.log(err);
+    console.log("Server listening on PORT", port);
+});
+
+
+
+
+
